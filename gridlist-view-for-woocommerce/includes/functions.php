@@ -24,7 +24,9 @@ if( ! function_exists( 'br_lgv_get_cookie' ) ) {
             $cookie_lgv = implode( '|', $cookie_lgv_result );
             if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
                 $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
-                setcookie ( 'br_lgv_stat', $cookie_lgv, 0, '/', $domain );
+	            if ( ! headers_sent() ) {
+		            setcookie( 'br_lgv_stat', $cookie_lgv, 0, '/', $domain );
+	            }
             }
         }
         $result = $cookie_lgv_result[$position];

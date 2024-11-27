@@ -86,11 +86,11 @@
     margin: 0;
     margin-right: 10px;
 }
-.woocommerce div.products .product.berocket_lgv_list > a img.
+.woocommerce div.products .product.berocket_lgv_list > a img,
 .woocommerce-page div.products .product.berocket_lgv_list > a img,
 .woocommerce div.products .product.berocket_lgv_list p,
 .woocommerce-page div.products .product.berocket_lgv_list p,
-.woocommerce ul.products .product.berocket_lgv_list > a img.
+.woocommerce ul.products .product.berocket_lgv_list > a img,
 .woocommerce-page ul.products .product.berocket_lgv_list > a img,
 .woocommerce ul.products .product.berocket_lgv_list p,
 .woocommerce-page ul.products .product.berocket_lgv_list p{

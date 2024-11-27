@@ -14,10 +14,6 @@ class ET_Builder_Module_brgridlist extends ET_Builder_Module {
         $this->name       = __( 'BeRocket Grid/List Buttons', 'BeRocket_products_label_domain' );
 		$this->folder_name = 'et_pb_berocket_modules';
 
-        $this->whitelisted_fields = array(
-            'all_page',
-        );
-
         $this->fields_defaults = array(
             'all_page'              => array('on'),
         );
