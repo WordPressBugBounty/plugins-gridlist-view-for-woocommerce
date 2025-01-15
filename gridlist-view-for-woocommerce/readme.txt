@@ -5,7 +5,7 @@ Donate link: https://berocket.com/woocommerce-grid-list-view/?utm_source=wordpre
 Tags: grid and list, grid view, list view, grid display, list display, grid layout, WC grid, WC list, list layout, gridlist view, grid and list view, woocommerce list, woocommerce plugin, products view, products grid view, products list view, woocommerce grid list view, woocommerce grid list layout, woocommerce grid view, woocommerce list view, woocommerce shop grid list layout, woocommerce category grid list layout, list category layout, list category display, grid view products, list view products, grid and list view woocommerce, grid and list view products, berocket, berocket grid and list view for woocommerce
 Requires at least: 5.0
 Tested up to: 6.7
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ You can try this plugin's admin side [here](https://berocket.com/woocommerce-gri
 ---
 
 == Changelog ==
+
+= 1.1.8 =
+* Enhancement - Compatibility version: WooCommerce 9.5
+* Fix - Change CDN links for elements
 
 = 1.1.7 =
 * Enhancement - Compatibility version: Wordpress 6.7 and WooCommerce 9.4

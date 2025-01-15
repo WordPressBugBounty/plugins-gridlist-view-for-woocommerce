@@ -1016,7 +1016,9 @@ class BeRocket_LGV extends BeRocket_Framework {
         return '<td colspan="2">' . ob_get_clean() . '</td>';
     }
     public function divi_extensions_init() {
-        include_once dirname( __FILE__ ) . '/divi/includes/GridListExtension.php';
+        if( class_exists('DiviExtension') ) {
+            include_once dirname( __FILE__ ) . '/divi/includes/GridListExtension.php';
+        }
     }
 }
 
