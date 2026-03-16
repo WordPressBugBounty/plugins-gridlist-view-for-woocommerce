@@ -704,13 +704,6 @@ class BeRocket_LGV extends BeRocket_Framework {
                     "name"      => array("product_count", "custom_class"),
                     "value"     => '',
                 ),
-                'framework_products_per_page' => array(
-                    "label"     => __( 'Products per page', "BeRocket_LGV_domain" ),
-                    "type"      => "number",
-                    "name"      => "framework_products_per_page",
-                    "value"     => '',
-                    'extra'     => 'placeholder="'.__( 'From WooCommerce', "BeRocket_LGV_domain" ).'"'
-                ),
                 'value' => array(
                     "label"     => __('Product count value', 'BeRocket_LGV_domain'),
                     "label_for" => __('You can use digits and "all"(Example:"12,24,48,all")', 'BeRocket_LGV_domain'). '<br><p class="notice notice-error">' . 
@@ -815,24 +808,6 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
             ),
             'Custom CSS/JavaScript' => array(
-                'global_font_awesome_disable' => array(
-                    "label"     => __( 'Disable Font Awesome', "BeRocket_LGV_domain" ),
-                    "type"      => "checkbox",
-                    "name"      => "fontawesome_frontend_disable",
-                    "value"     => '1',
-                    'label_for' => __('Don\'t load Font Awesome css files on site front end. Use it only if you don\'t use Font Awesome icons in widgets or your theme has Font Awesome.', 'BeRocket_LGV_domain'),
-                ),
-                'global_fontawesome_version' => array(
-                    "label"    => __( 'Font Awesome Version', "BeRocket_LGV_domain" ),
-                    "name"     => "fontawesome_frontend_version",
-                    "type"     => "selectbox",
-                    "options"  => array(
-                        array('value' => '', 'text' => __('Font Awesome 4', 'BeRocket_LGV_domain')),
-                        array('value' => 'fontawesome5', 'text' => __('Font Awesome 5', 'BeRocket_LGV_domain')),
-                    ),
-                    "value"    => '',
-                    "label_for" => __('Version of Font Awesome that will be used on front end. Please select version that you have in your theme', 'BeRocket_LGV_domain'),
-                ),
                 array(
                     "label"   => __( "Custom CSS", "BeRocket_LGV_domain" ),
                     "name"    => "custom_css",
