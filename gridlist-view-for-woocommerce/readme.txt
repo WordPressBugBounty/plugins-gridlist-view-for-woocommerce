@@ -2,10 +2,10 @@
 Plugin Name: Grid/List View for WooCommerce
 Contributors: berocket, dholovnia
 Donate link: https://berocket.com/woocommerce-grid-list-view/?utm_source=wordpress_org&utm_medium=donate&utm_campaign=list_grid
-Tags: grid and list, grid view, list view, grid display, list display, grid layout, WC grid, WC list, list layout, gridlist view, grid and list view, woocommerce list, woocommerce plugin, products view, products grid view, products list view, woocommerce grid list view, woocommerce grid list layout, woocommerce grid view, woocommerce list view, woocommerce shop grid list layout, woocommerce category grid list layout, list category layout, list category display, grid view products, list view products, grid and list view woocommerce, grid and list view products, berocket, berocket grid and list view for woocommerce
+Tags: woocommerce, grid view, list view, layout, toggle
 Requires at least: 5.0
-Tested up to: 6.9.3
-Stable tag: 1.1.8.3
+Tested up to: 6.9.4
+Stable tag: 1.1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,11 @@ WooCommerce Grid/List View plugin adds buttons to shops page which toggles grid 
 This is simple plugin with advanced customization of list / grid view toggle buttons and list style.
 List view products is vertical list of products with additional information.
 Grid view products is default WooCommerce view of products.
+
+= 🚀 Spring Premium Days is LIVE! =
+**Save 30%** on Pro features across BeRocket plugins. 
+*Let customers view products their way with fully customizable grid and list layouts. Advanced list styles and layout presets make browsing faster, cleaner, and more enjoyable, boosting conversions.*
+🌿 Improve your store today. [**Limited time offer!**](https://berocket.com/woocommerce-grid-list-view/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=spring_2026&utm_content=top_ad_cta&utm_term=list_grid)
 
 = Features: =
 &#9989; Switch list and grid product view style
@@ -135,6 +140,10 @@ You can try this plugin's admin side [here](https://berocket.com/woocommerce-gri
 ---
 
 == Changelog ==
+
+= 1.1.8.4 =
+* Enhancement - Compatibility version: Wordpress 6.9.4 and WooCommerce 10.6.2
+* Fix - PHP warning in admin area
 
 = 1.1.8.3 =
 * Enhancement - Compatibility with other BeRocket plugins
