@@ -5,7 +5,7 @@ Donate link: https://berocket.com/woocommerce-grid-list-view/?utm_source=wordpre
 Tags: woocommerce, grid view, list view, layout, toggle
 Requires at least: 5.0
 Tested up to: 6.9.4
-Stable tag: 1.1.8.5
+Stable tag: 3.0.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,11 +19,6 @@ WooCommerce Grid/List View plugin adds buttons to shops page which toggles grid 
 This is simple plugin with advanced customization of list / grid view toggle buttons and list style.
 List view products is vertical list of products with additional information.
 Grid view products is default WooCommerce view of products.
-
-= 🚀 Spring Premium Days is LIVE! =
-**Save 30%** on Pro features across BeRocket plugins. 
-*Let customers view products their way with fully customizable grid and list layouts. Advanced list styles and layout presets make browsing faster, cleaner, and more enjoyable, boosting conversions.*
-🌿 Improve your store today. [**Limited time offer!**](https://berocket.com/woocommerce-grid-list-view/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=spring_2026&utm_content=top_ad_cta&utm_term=list_grid)
 
 = Features: =
 &#9989; Switch list and grid product view style
@@ -140,6 +135,11 @@ You can try this plugin's admin side [here](https://berocket.com/woocommerce-gri
 ---
 
 == Changelog ==
+
+= 3.0.8.3 =
+* Enhancement - Compatibility version: Wordpress 6.9.4
+* Enhancement - Version same as premium plugin
+* Fix - PHP fatal error on plugin update when other BeRocket plugin installed
 
 = 1.1.8.5 =
 * Enhancement - Compatibility version: WooCommerce 10.7
