@@ -193,6 +193,9 @@
 .lgv_table_styler td{
     padding: 3px;
 }
+.lgv_table_styler td + td {
+    width: 60%;
+}
 .lgv_faq span{
     font-weight: bold;
 }
@@ -235,10 +238,14 @@
 .br_framework_settings .button.br_grid_list_page_add {
     margin: 0;
     padding: 1px;
+    min-height: 40px;
 }
 .br_framework_settings .br_grid_list_pages .button,
 .br_framework_settings .set_default.tiny-button.button,
 .br_framework_settings .lgv_admin_settings.styler .tiny-button.button {
     margin: 0;
     margin-bottom: 3px;
+}
+.br_framework_settings .lgv_admin_settings.styler tr th {
+    padding-bottom: 1px;
 }

@@ -62,6 +62,7 @@ class BeRocket_LGV extends BeRocket_Framework {
             'key'         => '',
             'name'        => '',
             'plugin_name' => 'list_grid',
+            'plugin_sku'  => 'gridlist',
             'full_name'   => 'Grid/List View for WooCommerce',
             'norm_name'   => 'Grid/List View',
             'price'       => '',
@@ -132,6 +133,8 @@ class BeRocket_LGV extends BeRocket_Framework {
             'free_slug'     => 'gridlist-view-for-woocommerce',
             'hpos_comp'     => true
         );
+
+	    $this->active_libraries = array('tooltip');
         $this->feature_list = array();
         $this->framework_data['fontawesome_frontend'] = true;
         parent::__construct( $this );
@@ -627,14 +630,14 @@ class BeRocket_LGV extends BeRocket_Framework {
                         ),
                         array(
                             "label_for" => __('Under order by menu', 'BeRocket_LGV_domain'),
-                            "label_be_for" => '<br>',
+                            "label_be_for" => ' ',
                             "type"      => "checkbox",
                             "name"      => array("buttons_page", "under_order"),
                             "value"     => '1',
                         ),
                         array(
                             "label_for" => __('Above pagination', 'BeRocket_LGV_domain'),
-                            "label_be_for" => '<br>',
+                            "label_be_for" => ' ',
                             "type"      => "checkbox",
                             "name"      => array("buttons_page", "above_paging"),
                             "value"     => '1',
@@ -654,6 +657,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
                 'paddings' => array(
                     "label"     => __('Paddings', 'BeRocket_LGV_domain'),
+                    "tr_class"  => "label_per_line",
                     "items"     => array(
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
@@ -664,21 +668,21 @@ class BeRocket_LGV extends BeRocket_Framework {
                         ),
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
-                            "label_be_for" => '<br>' . __('Above buttons', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('Above buttons', 'BeRocket_LGV_domain'),
                             "type"      => "number",
                             "name"      => array("buttons_page", "padding", "bottom"),
                             "value"     => '1',
                         ),
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
-                            "label_be_for" => '<br>' . __('Before buttons', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('Before buttons', 'BeRocket_LGV_domain'),
                             "type"      => "number",
                             "name"      => array("buttons_page", "padding", "left"),
                             "value"     => '1',
                         ),
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
-                            "label_be_for" => '<br>' . __('After buttons', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('After buttons', 'BeRocket_LGV_domain'),
                             "type"      => "number",
                             "name"      => array("buttons_page", "padding", "right"),
                             "value"     => '1',
@@ -725,6 +729,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
                 'paddings' => array(
                     "label"     => __('Text', 'BeRocket_LGV_domain'),
+                    "tr_class"  => 'label_per_line',
                     "items"     => array(
                         array(
                             "label_be_for" => __('Text before', 'BeRocket_LGV_domain'),
@@ -734,7 +739,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                             "value"     => '',
                         ),
                         array(
-                            "label_be_for" => '<br>' . __('Text after', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('Text after', 'BeRocket_LGV_domain'),
                             "type"      => "text",
                             "name"      => array("product_count", "text_after"),
                             "class"     => "text_after",
@@ -744,6 +749,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
                 'buttons_display' => array(
                     "label"     => __('Buttons display', 'BeRocket_LGV_domain'),
+                    "tr_class"  => 'label_per_line',
                     "items"     => array(
                         array(
                             "label_for" => __('Above order by menu', 'BeRocket_LGV_domain'),
@@ -758,7 +764,6 @@ class BeRocket_LGV extends BeRocket_Framework {
                             "value"     => '1',
                         ),
                         array(
-                            "label_be_for" => '<br>',
                             "label_for" => __('Under order by menu', 'BeRocket_LGV_domain'),
                             "type"      => "checkbox",
                             "name"      => array("product_count", "under_order", "is"),
@@ -771,7 +776,6 @@ class BeRocket_LGV extends BeRocket_Framework {
                             "value"     => '1',
                         ),
                         array(
-                            "label_be_for" => '<br>',
                             "label_for" => __('Above pagination', 'BeRocket_LGV_domain'),
                             "type"      => "checkbox",
                             "name"      => array("product_count", "above_paging", "is"),
@@ -784,14 +788,12 @@ class BeRocket_LGV extends BeRocket_Framework {
                             "value"     => '1',
                         ),
                         array(
-                            "label_be_for" => '<br>',
                             "label_for" => __('Before Grid/List buttons', 'BeRocket_LGV_domain'),
                             "type"      => "checkbox",
                             "name"      => array("product_count", "before_grid_list"),
                             "value"     => '1',
                         ),
                         array(
-                            "label_be_for" => '<br>',
                             "label_for" => __('After Grid/List buttons', 'BeRocket_LGV_domain'),
                             "type"      => "checkbox",
                             "name"      => array("product_count", "after_grid_list"),
