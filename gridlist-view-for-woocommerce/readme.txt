@@ -4,8 +4,8 @@ Contributors: berocket, dholovnia
 Donate link: https://berocket.com/woocommerce-grid-list-view/?utm_source=wordpress_org&utm_medium=donate&utm_campaign=list_grid
 Tags: woocommerce, grid view, list view, layout, toggle
 Requires at least: 5.0
-Tested up to: 7.0
-Stable tag: 3.0.8.4
+Tested up to: 7.0.1
+Stable tag: 3.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,13 @@ You can try this plugin's admin side [here](https://berocket.com/woocommerce-gri
 ---
 
 == Changelog ==
+
+= 3.0.9 =
+* Enhancement - Harden locked features validation
+* Enhancement - Small speed improvement
+* Enhancement - Harden Global settings validation
+* Fix - Global settings, some options were not editable
+* Fix - PHP warnings in new framework submodule
 
 = 3.0.8.4 =
 * Enhancement - Compatibility version: Wordpress 7.0
