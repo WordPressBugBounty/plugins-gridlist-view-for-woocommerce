@@ -167,10 +167,58 @@ class BeRocket_LGV extends BeRocket_Framework {
         register_widget("berocket_lgv_widget");
     }
     public function shortcode( $atts = array() ) {
+        $atts = shortcode_atts(
+            array(
+                'title'    => '',
+                'all_page' => 0,
+                'position' => '',
+            ),
+            (array) $atts,
+            'br_grid_list'
+        );
+        $atts = self::sanitize_widget_instance( $atts );
         ob_start();
         the_widget( 'berocket_lgv_widget', $atts );
         $return = ob_get_clean();
         return $return;
+    }
+    public static function sanitize_position( $position ) {
+        $position = sanitize_key( (string) $position );
+
+        return in_array( $position, array( 'left', 'right' ), true ) ? $position : '';
+    }
+    public static function sanitize_bool_value( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value ? 1 : 0;
+        }
+
+        return in_array( strtolower( trim( (string) $value ) ), array( '1', 'true', 'yes', 'on' ), true ) ? 1 : 0;
+    }
+    public static function sanitize_padding( $padding ) {
+        $padding = is_array( $padding ) ? $padding : array();
+        $sanitized = array();
+
+        foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
+            $sanitized[ $side ] = isset( $padding[ $side ] ) ? absint( $padding[ $side ] ) : 0;
+        }
+
+        return $sanitized;
+    }
+    public static function sanitize_html_classes( $classes, $fallback = '' ) {
+        $classes = preg_split( '/\s+/', trim( (string) $classes ) );
+        $classes = array_filter( array_map( 'sanitize_html_class', $classes ) );
+        $classes = implode( ' ', array_unique( $classes ) );
+
+        return $classes === '' ? $fallback : $classes;
+    }
+    public static function sanitize_widget_instance( $instance ) {
+        $instance = is_array( $instance ) ? $instance : array();
+        $instance['title'] = isset( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
+        $instance['all_page'] = self::sanitize_bool_value( isset( $instance['all_page'] ) ? $instance['all_page'] : 0 );
+        $instance['position'] = self::sanitize_position( isset( $instance['position'] ) ? $instance['position'] : '' );
+        $instance['padding'] = self::sanitize_padding( isset( $instance['padding'] ) ? $instance['padding'] : array() );
+
+        return $instance;
     }
     function init_validation() {
         return parent::init_validation() && $this->check_framework_version();
