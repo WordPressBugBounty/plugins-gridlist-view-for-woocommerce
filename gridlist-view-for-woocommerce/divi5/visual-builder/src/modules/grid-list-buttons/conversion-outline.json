@@ -1,0 +1,14 @@
+{
+  "advanced": {
+    "fonts": {
+      "body": "buttons.decoration.font"
+    },
+    "admin_label": "module.meta.adminLabel",
+    "module": "module.advanced.htmlAttributes"
+  },
+  "module": {
+    "title": "title.innerContent.*",
+    "all_page": "all_page.innerContent.*",
+    "position": "position.innerContent.*"
+  }
+}

@@ -150,6 +150,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                 add_action ( "wp", array( $this, 'wp' ) );
                 add_action ( "admin_init", array( $this, 'wp' ) );
                 add_action( 'divi_extensions_init', array($this, 'divi_extensions_init') );
+                add_action( 'after_setup_theme', array($this, 'divi5_initialize'), 20 );
                 // INIT COOKIES TO PREVENT ERRORS
                 br_lgv_get_cookie ( 0, true );
 
@@ -1044,8 +1045,19 @@ class BeRocket_LGV extends BeRocket_Framework {
         include('templates/settings/buttons_styles.php');
         return '<td colspan="2">' . ob_get_clean() . '</td>';
     }
+    public function divi5_initialize() {
+        if( ! function_exists('et_builder_d5_enabled') || ! et_builder_d5_enabled() ) {
+            return;
+        }
+
+        $divi5_integration = plugin_dir_path( __FILE__ ) . 'divi5/includes/Integration.php';
+        if( file_exists($divi5_integration) ) {
+            require_once $divi5_integration;
+            BRGL_Divi5_Integration::init();
+        }
+    }
     public function divi_extensions_init() {
-        if( class_exists('DiviExtension') ) {
+        if( ( ! function_exists('et_builder_d5_enabled') || ! et_builder_d5_enabled() ) && class_exists('DiviExtension') ) {
             include_once dirname( __FILE__ ) . '/divi/includes/GridListExtension.php';
         }
     }
