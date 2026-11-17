@@ -1,0 +1,12 @@
+.berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data + .berocket_lgv_after_additional:not(:last-child) {
+    box-sizing: border-box;
+    height: 24px;
+    padding-block-start: 12px;
+}
+.berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data + .berocket_lgv_after_additional:not(:last-child)::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.2;
+}

@@ -1,0 +1,88 @@
+/* Opt-in only. Every visible rule requires the active list markup, not Grid. */
+body.br-lgv-compact-list {
+    --br-lgv-compact-image: 96px;
+}
+body.br-lgv-compact-list ul.products li.product.berocket_lgv_list_grid.berocket_lgv_list:not(.berocket_lgv_advanced),
+body.br-lgv-compact-list div.products .product.berocket_lgv_list_grid.berocket_lgv_list:not(.berocket_lgv_advanced) {
+    width: var(--br-lgv-compact-image);
+    max-width: var(--br-lgv-compact-image);
+    margin: 0 12px 0 0;
+    /* Themes may force .last to zero with !important, even in list view. */
+    margin-right: 12px !important;
+    padding: 0;
+}
+body.br-lgv-compact-list .berocket_lgv_list:not(.berocket_lgv_advanced) > a img {
+    width: 100%;
+    max-height: var(--br-lgv-compact-image);
+    object-fit: contain;
+}
+body.br-lgv-compact-list .berocket_lgv_list:not(.berocket_lgv_advanced) .button,
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data.lgv_advanced .button {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data {
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data:not(.lgv_advanced) {
+    width: calc(100% - var(--br-lgv-compact-image) - 12px);
+    max-width: calc(100% - var(--br-lgv-compact-image) - 12px);
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_link,
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_link_hover {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_description {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_description p {
+    margin: 0 0 4px;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_meta {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data .lgv_price {
+    font-size: 15px;
+    line-height: 1.3;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data + .berocket_lgv_after_additional {
+    height: 8px;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data.lgv_advanced .lgv_img_advanced {
+    float: left;
+    width: var(--br-lgv-compact-image);
+    max-width: var(--br-lgv-compact-image);
+    margin: 0;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data.lgv_advanced .lgv_img_advanced img {
+    max-height: var(--br-lgv-compact-image);
+    object-fit: contain;
+}
+body.br-lgv-compact-list .berocket_lgv_list_grid.berocket_lgv_list + .berocket_lgv_additional_data.lgv_advanced .lgv_text_div_advanced {
+    box-sizing: border-box;
+    float: left;
+    width: calc(100% - var(--br-lgv-compact-image));
+    margin: 0;
+    padding: 0 0 0 12px;
+}
+@media (max-width: 600px) {
+    body.br-lgv-compact-list {
+        --br-lgv-compact-image: 72px;
+    }
+}

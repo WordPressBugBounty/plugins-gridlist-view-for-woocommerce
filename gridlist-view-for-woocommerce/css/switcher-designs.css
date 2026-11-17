@@ -1,0 +1,245 @@
+/* Scoped presets leave legacy controls, products-per-page and theme buttons alone. */
+.br-lgv-switcher {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+.br-lgv-switcher:not(.br-lgv-switcher--manual) {
+    font-size: 16px;
+}
+.berocket_lgv_widget span.br-lgv-switcher:where(:not(.br-lgv-switcher--manual)) > .berocket_lgv_set {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 40px;
+    height: var(--br-lgv-height, 38px);
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--br-lgv-color, #4b5563);
+    background: var(--br-lgv-background, transparent);
+    border: var(--br-lgv-border, 0);
+    border-radius: var(--br-lgv-radius);
+    box-shadow: var(--br-lgv-shadow, none);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s, color .15s, border-color .15s;
+}
+.berocket_lgv_widget span.br-lgv-switcher:where(:not(.br-lgv-switcher--manual)) > .berocket_lgv_set:hover {
+    color: var(--br-lgv-hover-color, #111827);
+    background: var(--br-lgv-hover-background, #e5e7eb);
+}
+.berocket_lgv_widget span.br-lgv-switcher:where(:not(.br-lgv-switcher--manual)) > .berocket_lgv_set.selected {
+    color: var(--br-lgv-selected-color, #111827);
+    background: var(--br-lgv-selected-background, transparent);
+    border-color: var(--br-lgv-selected-border, transparent);
+    box-shadow: var(--br-lgv-selected-shadow, none);
+}
+.berocket_lgv_widget span.br-lgv-switcher:where(:not(.br-lgv-switcher--manual)) > .berocket_lgv_set.selected:hover,
+.berocket_lgv_widget span.br-lgv-switcher:where(:not(.br-lgv-switcher--manual)) > .berocket_lgv_set:active {
+    color: var(--br-lgv-selected-color, #111827);
+    background: var(--br-lgv-pressed-background, #d1d5db);
+}
+.br-lgv-switcher.br-lgv-switcher--segmented {
+    --br-lgv-radius: 5px;
+    padding: 3px;
+    gap: 2px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f3f4f6;
+}
+.br-lgv-switcher--segmented > .berocket_lgv_set {
+    border-radius: 5px;
+}
+.berocket_lgv_widget span.br-lgv-switcher--segmented > .berocket_lgv_set:hover {
+    color: #111827;
+    background: #e5e7eb;
+}
+.berocket_lgv_widget span.br-lgv-switcher--segmented > .berocket_lgv_set.selected {
+    color: #fff;
+    background: #1f2937;
+}
+.berocket_lgv_widget span.br-lgv-switcher--segmented > .berocket_lgv_set.selected:hover,
+.berocket_lgv_widget span.br-lgv-switcher--segmented > .berocket_lgv_set:active {
+    color: #fff;
+    background: #374151;
+}
+.br-lgv-switcher.br-lgv-switcher--underline {
+    gap: 8px;
+    border-bottom: 1px solid #d1d5db;
+}
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set {
+    border-radius: 0;
+    border-bottom: 3px solid transparent;
+}
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set:hover {
+    color: #111827;
+    background: #f3f4f6;
+}
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set.selected:hover {
+    background: #f3f4f6;
+}
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set.selected {
+    color: #111827;
+    border-bottom-color: #111827;
+}
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set:active,
+.berocket_lgv_widget span.br-lgv-switcher--underline > .berocket_lgv_set.selected:active {
+    background: #e5e7eb;
+}
+/* A shared interaction layer keeps all ten additional designs consistent. */
+.br-lgv-switcher--pill {
+    --br-lgv-radius: 999px;
+    --br-lgv-selected-color: #fff;
+    --br-lgv-selected-background: #1d4ed8;
+    --br-lgv-pressed-background: #1e40af;
+    --br-lgv-hover-background: #dbeafe;
+    padding: 3px;
+    gap: 2px;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    background: #eff6ff;
+}
+.br-lgv-switcher--outline,
+.br-lgv-switcher--vertical {
+    --br-lgv-border: 1px solid #9ca3af;
+    --br-lgv-radius: 4px;
+    --br-lgv-selected-color: #fff;
+    --br-lgv-selected-background: #1f2937;
+    --br-lgv-selected-border: #1f2937;
+    --br-lgv-pressed-background: #374151;
+    gap: 6px;
+}
+.br-lgv-switcher--vertical {
+    flex-direction: column;
+}
+.br-lgv-switcher--soft {
+    --br-lgv-radius: 10px;
+    --br-lgv-color: #5b21b6;
+    --br-lgv-background: #f5f3ff;
+    --br-lgv-hover-color: #5b21b6;
+    --br-lgv-hover-background: #ede9fe;
+    --br-lgv-selected-color: #5b21b6;
+    --br-lgv-selected-background: #ddd6fe;
+    --br-lgv-pressed-background: #c4b5fd;
+    gap: 6px;
+}
+.br-lgv-switcher--circle {
+    --br-lgv-radius: 50%;
+    --br-lgv-height: 40px;
+    --br-lgv-background: #f0fdf4;
+    --br-lgv-color: #166534;
+    --br-lgv-hover-color: #166534;
+    --br-lgv-hover-background: #dcfce7;
+    --br-lgv-selected-color: #fff;
+    --br-lgv-selected-background: #15803d;
+    --br-lgv-pressed-background: #166534;
+    gap: 8px;
+}
+.br-lgv-switcher--dark {
+    --br-lgv-radius: 3px;
+    --br-lgv-color: #d1d5db;
+    --br-lgv-hover-color: #fff;
+    --br-lgv-hover-background: #374151;
+    --br-lgv-selected-color: #111827;
+    --br-lgv-selected-background: #f9fafb;
+    --br-lgv-pressed-background: #d1d5db;
+    padding: 4px;
+    gap: 2px;
+    background: #111827;
+    border-radius: 6px;
+}
+.br-lgv-switcher--raised {
+    --br-lgv-border: 1px solid #d1d5db;
+    --br-lgv-radius: 6px;
+    --br-lgv-background: #fff;
+    --br-lgv-shadow: 0 2px 3px rgb(0 0 0 / 12%);
+    --br-lgv-hover-background: #f0fdfa;
+    --br-lgv-selected-color: #fff;
+    --br-lgv-selected-background: #0f766e;
+    --br-lgv-selected-border: #0f766e;
+    --br-lgv-selected-shadow: inset 0 2px 3px rgb(0 0 0 / 18%);
+    --br-lgv-pressed-background: #115e59;
+    gap: 8px;
+}
+.br-lgv-switcher--framed {
+    --br-lgv-radius: 0;
+    --br-lgv-border: 1px solid transparent;
+    --br-lgv-selected-color: #1e40af;
+    --br-lgv-selected-background: #dbeafe;
+    --br-lgv-pressed-background: #bfdbfe;
+    border: 1px solid #64748b;
+}
+.berocket_lgv_widget span.br-lgv-switcher--framed > .berocket_lgv_set + .berocket_lgv_set {
+    border-inline-start: 1px solid #64748b;
+}
+.br-lgv-switcher--tabs {
+    --br-lgv-radius: 5px 5px 0 0;
+    --br-lgv-border: 1px solid transparent;
+    --br-lgv-background: #f3f4f6;
+    --br-lgv-selected-color: #1d4ed8;
+    --br-lgv-selected-background: #fff;
+    --br-lgv-pressed-background: #dbeafe;
+    gap: 4px;
+    border-bottom: 1px solid #9ca3af;
+}
+.berocket_lgv_widget span.br-lgv-switcher--tabs > .berocket_lgv_set.selected {
+    border-color: #9ca3af;
+    border-top: 3px solid #1d4ed8;
+    border-bottom-color: #fff;
+    margin-bottom: -1px;
+}
+.br-lgv-switcher--topline {
+    --br-lgv-border: 0 solid transparent;
+    --br-lgv-selected-color: #6d28d9;
+    --br-lgv-selected-background: #f5f3ff;
+    --br-lgv-hover-background: #ede9fe;
+    --br-lgv-pressed-background: #ddd6fe;
+    gap: 6px;
+}
+.berocket_lgv_widget span.br-lgv-switcher--topline > .berocket_lgv_set {
+    border-top-width: 3px;
+}
+.berocket_lgv_widget span.br-lgv-switcher--topline > .berocket_lgv_set.selected {
+    border-top-color: #6d28d9;
+}
+.br-lgv-switcher--accent {
+    --br-lgv-radius: 0 4px 4px 0;
+    --br-lgv-border: 0 solid transparent;
+    --br-lgv-background: #fafaf9;
+    --br-lgv-selected-color: #9a3412;
+    --br-lgv-selected-background: #ffedd5;
+    --br-lgv-hover-background: #fff7ed;
+    --br-lgv-pressed-background: #fed7aa;
+    gap: 6px;
+}
+.berocket_lgv_widget span.br-lgv-switcher--accent > .berocket_lgv_set {
+    border-inline-start-width: 3px;
+}
+.berocket_lgv_widget span.br-lgv-switcher--accent > .berocket_lgv_set.selected {
+    border-inline-start-color: #c2410c;
+}
+.br-lgv-switcher.br-lgv-switcher-gap-small {
+    gap: 2px;
+}
+.br-lgv-switcher.br-lgv-switcher-gap-medium {
+    gap: 6px;
+}
+.br-lgv-switcher.br-lgv-switcher-gap-large {
+    gap: 12px;
+}
+.berocket_lgv_widget span.br-lgv-switcher > .berocket_lgv_set:focus-visible {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+    z-index: 1;
+}
+.br-lgv-design-preview {
+    flex-basis: 100%;
+    margin-top: 5px;
+}

@@ -78,6 +78,29 @@
 .berocket_lgv_list {
     clear: left;
 }
+/* Applied only to detected grid containers while list view is active. */
+.berocket_lgv_list_container {
+    display: flow-root !important;
+}
+.berocket_lgv_list_container > .product.berocket_lgv_list:nth-child(n) {
+    width: 30%;
+    min-width: 0;
+    max-width: 30%;
+    margin: 0 10px 0 0;
+}
+.berocket_lgv_list_container > .berocket_lgv_additional_data {
+    margin-block-start: 0;
+}
+.berocket_lgv_list_container > .berocket_lgv_list h1,
+.berocket_lgv_list_container > .berocket_lgv_list h2,
+.berocket_lgv_list_container > .berocket_lgv_list h3,
+.berocket_lgv_list_container > .berocket_lgv_list h4,
+.berocket_lgv_list_container > .berocket_lgv_list h5,
+.berocket_lgv_list_container > .berocket_lgv_list h6,
+.berocket_lgv_list_container > .berocket_lgv_list .price,
+.berocket_lgv_list_container > .berocket_lgv_list .wp-block-woocommerce-product-price {
+    display: none;
+}
 .woocommerce div.products .product.berocket_lgv_list:nth-child(n),
 .woocommerce-page div.products .product.berocket_lgv_list:nth-child(n),
 .woocommerce ul.products .product.berocket_lgv_list:nth-child(n),

@@ -3,6 +3,37 @@
 
         /*BUTTONS*/
 
+        function storeManualSwitcherStyles() {
+            $('.berocket_lgv_button_test_normal_styles').val($('.berocket_lgv_button_test.normal').attr('style'));
+            $('.berocket_lgv_button_test_hover_styles').val($('.berocket_lgv_button_test.hover').attr('style'));
+            $('.berocket_lgv_button_test_selected_styles').val($('.berocket_lgv_button_test.selected').attr('style'));
+        }
+        function updateSwitcherDesign() {
+            var design = $('.br-lgv-switcher-design').val();
+            var previous = $('.br-lgv-switcher-design').data('previous-design');
+            if (previous === 'manual' && design !== 'manual') {
+                storeManualSwitcherStyles();
+            }
+            $('.br-lgv-switcher-design').data('previous-design', design);
+            var customClass = $.trim($('.br-lgv-switcher-custom-class').val() || '');
+            var preset = !!design && design !== 'manual' && !customClass;
+            var gap = $('.br-lgv-switcher-gap').val();
+            var previewClass = 'br-lgv-switcher';
+            if (preset) {
+                previewClass += ' br-lgv-switcher--' + design;
+                if (gap && gap !== 'default') {
+                    previewClass += ' br-lgv-switcher-gap-' + gap;
+                }
+            }
+            $('.br-lgv-manual-switcher').toggle(!preset);
+            $('.br-lgv-design-preview').toggle(preset).find('.br-lgv-switcher').attr('class', previewClass);
+        }
+        $(document).on('change input', '.br-lgv-switcher-design, .br-lgv-switcher-custom-class, .br-lgv-switcher-gap', updateSwitcherDesign);
+        $(document).on('click', '.br-lgv-design-preview button', function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+        updateSwitcherDesign();
+
         $(document).on( 'click', '.berocket_lgv_button_test', function ( event ) {
             event.preventDefault();
         });
@@ -191,9 +222,9 @@
             })
         });
         $('.list_grid_submit_form').on( 'submit', function( event ) {
-            $('.berocket_lgv_button_test_normal_styles').val($( '.berocket_lgv_button_test.normal' ).attr('style'));
-            $('.berocket_lgv_button_test_hover_styles').val($( '.berocket_lgv_button_test.hover' ).attr('style'));
-            $('.berocket_lgv_button_test_selected_styles').val($( '.berocket_lgv_button_test.selected' ).attr('style'));
+            if ($('.br-lgv-switcher-design').val() === 'manual') {
+                storeManualSwitcherStyles();
+            }
             
             $('.berocket_lgv_product_count_normal_styles').val($( '.br_lgv_product_count.normalpc' ).attr('style'));
             $('.berocket_lgv_product_count_hover_styles').val($( '.br_lgv_product_count.hoverpc' ).attr('style'));

@@ -16,6 +16,31 @@ include_once(plugin_dir_path( __FILE__ ) . "includes/admin/funnels.php");
 class BeRocket_LGV extends BeRocket_Framework {
     public static $settings_name = 'br-list_grid-options';
     protected static $instance;
+    public $import_export = array(
+        'buttons_page' => array(
+            'pages' => array(
+                'export_type' => 'post',
+                'post_type'   => 'page',
+                'array_keys'  => true,
+                'passthrough' => array('home', 'shop', 'category', 'product'),
+                'on_missing'  => 'remove',
+            ),
+            'mobile_pages' => array(
+                'export_type' => 'post',
+                'post_type'   => 'page',
+                'array_keys'  => true,
+                'passthrough' => array('home', 'shop', 'category', 'product'),
+                'on_missing'  => 'remove',
+            ),
+            'desktop_pages' => array(
+                'export_type' => 'post',
+                'post_type'   => 'page',
+                'array_keys'  => true,
+                'passthrough' => array('home', 'shop', 'category', 'product'),
+                'on_missing'  => 'remove',
+            ),
+        ),
+    );
     public static $br_lgv_cookie_defaults = array('default', 'default');
     protected $disable_settings_for_admin = array(
         array('javascript', 'before_style_set'),
@@ -80,6 +105,8 @@ class BeRocket_LGV extends BeRocket_Framework {
                 'fontawesome_frontend_disable'  => '',
                 'fontawesome_frontend_version'  => '',
                 'custom_class'                  => '',
+                'switcher_design'               => 'outline',
+                'switcher_gap'                  => 'default',
                 'above_order'                   => '',
                 'under_order'                   => '1',
                 'above_paging'                  => '',
@@ -106,7 +133,7 @@ class BeRocket_LGV extends BeRocket_Framework {
                 'after_grid_list'               => '',
                 'position'                      => 'left',
             ),
-            'liststyle'         => array(),
+            'liststyle'         => array('spacing' => 'default'),
             'custom_css'        => '',
             'javascript'        => array(
                 'before_style_set'              => '',
@@ -311,6 +338,21 @@ class BeRocket_LGV extends BeRocket_Framework {
         wp_enqueue_style( 'berocket_lgv_style' );
         $options        = $this->get_option();
         $lgv_options    = $options['buttons_page'];
+        add_filter('body_class', array($this, 'compact_list_body_class'));
+        if( ! is_admin() ) {
+            $list_spacing = self::sanitize_list_spacing($options['liststyle']['spacing'] ?? 'default');
+            if( 'compact' === $list_spacing ) {
+                wp_enqueue_style('berocket_lgv_compact_list', plugins_url('css/compact-list.css', __FILE__),
+                    array('berocket_lgv_style'), BeRocket_List_Grid_version);
+            } elseif( 'dividers' === $list_spacing ) {
+                wp_enqueue_style('berocket_lgv_list_dividers', plugins_url('css/list-dividers.css', __FILE__),
+                    array('berocket_lgv_style'), BeRocket_List_Grid_version);
+            }
+        }
+        if( 'manual' !== self::sanitize_switcher_design($lgv_options['switcher_design'] ?? 'manual')
+            || 'default' !== self::sanitize_switcher_gap($lgv_options['switcher_gap'] ?? 'default') ) {
+            $this->enqueue_switcher_design_styles();
+        }
         br_lgv_get_cookie( 0, true );
         $lgv_options_pc = $options['product_count'];
         if( ! empty($lgv_options['above_order']) ) {
@@ -512,18 +554,24 @@ class BeRocket_LGV extends BeRocket_Framework {
             wp_enqueue_script( 'berocket_lgv_admin', plugins_url( 'js/admin_lgv.js', __FILE__ ), array( 'jquery' ), BeRocket_List_Grid_version );
             wp_register_style( 'berocket_lgv_admin_style', plugins_url( 'css/admin_lgv.css', __FILE__ ), "", BeRocket_List_Grid_version );
             wp_enqueue_style( 'berocket_lgv_admin_style' );
+            $this->enqueue_switcher_design_styles();
         }
         $this->update_from_not_framework();
     }
     public function update_from_not_framework() {
         $update_option = false;
         $options = $this->get_option();
+        $stored_options = get_option($this->values['settings_name']);
+        $switcher_design = $stored_options['buttons_page']['switcher_design'] ?? 'manual';
         $settings_list = array('buttons_page', 'product_count', 'liststyle');
         foreach($settings_list as $setting_list) {
             $settings = get_option('br_lgv_'.$setting_list.'_option');
             if( ! empty($settings) && is_array($settings) ) {
                 $update_option = true;
                 $options[$setting_list] = $settings;
+                if( 'buttons_page' === $setting_list ) {
+                    $switcher_design = $settings['switcher_design'] ?? 'manual';
+                }
                 delete_option('br_lgv_'.$setting_list.'_option');
             }
         }
@@ -535,6 +583,10 @@ class BeRocket_LGV extends BeRocket_Framework {
             if( ! is_array($options['javascript']) ) {
                 $options['javascript'] = array();
             }
+            // Pre-framework installations keep their existing manual appearance.
+            $options['buttons_page']['switcher_design'] = self::sanitize_switcher_design(
+                $switcher_design
+            );
             $options = $this->recursive_array_set( $this->defaults, $options );
             update_option($this->values[ 'settings_name' ], $options);
         }
@@ -549,7 +601,7 @@ class BeRocket_LGV extends BeRocket_Framework {
         ?>
         <style>
             <?php echo $lgv_css_style; ?>
-            <?php if ( empty($lgv_options['custom_class']) ) { 
+            <?php if ( empty($lgv_options['custom_class']) && 'manual' === self::sanitize_switcher_design($lgv_options['switcher_design'] ?? 'manual') ) {
                 if( ! empty($lgv_options['button_style']['normal'])) {?>
                 div.berocket_lgv_widget a.berocket_lgv_button{
                     <?php echo $lgv_options['button_style']['normal'] ?>
@@ -611,7 +663,78 @@ class BeRocket_LGV extends BeRocket_Framework {
         </style>
         <?php
     }
+    public static function get_switcher_designs() {
+        return array(
+            'segmented' => __('Segmented', 'BeRocket_LGV_domain'),
+            'underline' => __('Minimal underline', 'BeRocket_LGV_domain'),
+            'pill' => __('Rounded pill', 'BeRocket_LGV_domain'),
+            'outline' => __('Outline', 'BeRocket_LGV_domain'),
+            'soft' => __('Soft tiles', 'BeRocket_LGV_domain'),
+            'circle' => __('Circle', 'BeRocket_LGV_domain'),
+            'dark' => __('Dark', 'BeRocket_LGV_domain'),
+            'raised' => __('Raised', 'BeRocket_LGV_domain'),
+            'framed' => __('Framed', 'BeRocket_LGV_domain'),
+            'tabs' => __('Tabs', 'BeRocket_LGV_domain'),
+            'topline' => __('Top line', 'BeRocket_LGV_domain'),
+            'accent' => __('Accent bar', 'BeRocket_LGV_domain'),
+            'vertical' => __('Vertical (sidebar)', 'BeRocket_LGV_domain'),
+            'manual' => __('Manual / existing styles', 'BeRocket_LGV_domain'),
+        );
+    }
+    public static function sanitize_switcher_design($design) {
+        return is_string($design) && array_key_exists($design, self::get_switcher_designs())
+            ? $design : 'manual';
+    }
+    public static function sanitize_list_spacing($spacing) {
+        return in_array($spacing, array('compact', 'dividers'), true) ? $spacing : 'default';
+    }
+    public static function sanitize_switcher_gap($gap) {
+        return in_array($gap, array('small', 'medium', 'large'), true) ? $gap : 'default';
+    }
+    public function compact_list_body_class($classes) {
+        $options = $this->get_option();
+        if( 'compact' === self::sanitize_list_spacing($options['liststyle']['spacing'] ?? 'default')
+            && ! in_array('br-lgv-compact-list', $classes, true) ) {
+            $classes[] = 'br-lgv-compact-list';
+        }
+        return $classes;
+    }
+    public function enqueue_switcher_design_styles() {
+        wp_enqueue_style('berocket_lgv_switcher_designs', plugins_url('css/switcher-designs.css', __FILE__),
+            array('berocket_lgv_style'), BeRocket_List_Grid_version);
+    }
+    public function save_settings_callback($settings) {
+        // Capture before the framework fills missing fields with fresh defaults.
+        $design = self::sanitize_switcher_design($settings['buttons_page']['switcher_design'] ?? 'manual');
+        $gap = self::sanitize_switcher_gap($settings['buttons_page']['switcher_gap'] ?? 'default');
+        $spacing = self::sanitize_list_spacing($settings['liststyle']['spacing'] ?? 'default');
+        if( isset($settings['liststyle']) && is_array($settings['liststyle']) ) {
+            $stored = $this->get_option();
+            // Keep styles not exposed by the current edition; posted editor values still win.
+            $settings['liststyle'] = array_merge(
+                is_array($stored['liststyle'] ?? null) ? $stored['liststyle'] : array(),
+                $settings['liststyle']
+            );
+        }
+        $settings = parent::save_settings_callback($settings);
+        if( is_array($settings) && isset($settings['buttons_page']) && is_array($settings['buttons_page']) ) {
+            $settings['buttons_page']['switcher_design'] = $design;
+            $settings['buttons_page']['switcher_gap'] = $gap;
+        }
+        if( is_array($settings) && isset($settings['liststyle']) && is_array($settings['liststyle']) ) {
+            $settings['liststyle']['spacing'] = $spacing;
+        }
+        return $settings;
+    }
     public function admin_settings( $tabs_info = array(), $data = array() ) {
+        $switcher_design_options = array();
+        foreach( self::get_switcher_designs() as $value => $text ) {
+            if( 'manual' === $value ) {
+                $switcher_design_options[] = array('value' => '', 'text' => '────────────────',
+                    'extra' => ' disabled="disabled" aria-hidden="true" class="br-lgv-design-divider"');
+            }
+            $switcher_design_options[] = array('value' => $value, 'text' => $text);
+        }
         parent::admin_settings(
             array(
                 'Buttons' => array(
@@ -619,6 +742,9 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
                 'Product Count' => array(
                     'icon' => 'list-ol',
+                ),
+                'List Style' => array(
+                    'icon' => 'list',
                 ),
                 'Custom CSS/JavaScript' => array(
                     'icon' => 'css3'
@@ -663,7 +789,8 @@ class BeRocket_LGV extends BeRocket_Framework {
                 ),
                 'custom_class' => array(
                     "label"     => __('Custom class', 'BeRocket_LGV_domain'),
-                    "label_for" => ' '.__('If custom class seted options is not used', 'BeRocket_LGV_domain'),
+                    "label_for" => ' '.__('A custom class overrides switcher designs and manual button styles.', 'BeRocket_LGV_domain'),
+                    "class"     => 'br-lgv-switcher-custom-class',
                     "type"      => "text",
                     "name"      => array("buttons_page", "custom_class"),
                     "value"     => '',
@@ -710,14 +837,14 @@ class BeRocket_LGV extends BeRocket_Framework {
                     "items"     => array(
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
-                            "label_be_for" => __('Under buttons', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('Above buttons', 'BeRocket_LGV_domain'),
                             "type"      => "number",
                             "name"      => array("buttons_page", "padding", "top"),
                             "value"     => '1',
                         ),
                         array(
                             "label_for" => __('px', 'BeRocket_LGV_domain'),
-                            "label_be_for" => __('Above buttons', 'BeRocket_LGV_domain'),
+                            "label_be_for" => __('Under buttons', 'BeRocket_LGV_domain'),
                             "type"      => "number",
                             "name"      => array("buttons_page", "padding", "bottom"),
                             "value"     => '1',
@@ -742,9 +869,38 @@ class BeRocket_LGV extends BeRocket_Framework {
                     "label"     => "",
                     "section"   => 'shortcode'
                 ),
+                'switcher_gap' => array(
+                    'label'     => __('Button spacing', 'BeRocket_LGV_domain'),
+                    'name'      => array('buttons_page', 'switcher_gap'),
+                    'type'      => 'selectbox',
+                    'class'     => 'br-lgv-switcher-gap',
+                    'value'     => 'default',
+                    'options'   => array(
+                        array('value' => 'default', 'text' => __('Design default', 'BeRocket_LGV_domain')),
+                        array('value' => 'small', 'text' => __('Small (2 px)', 'BeRocket_LGV_domain')),
+                        array('value' => 'medium', 'text' => __('Medium (6 px)', 'BeRocket_LGV_domain')),
+                        array('value' => 'large', 'text' => __('Large (12 px)', 'BeRocket_LGV_domain')),
+                    ),
+                    'label_for' => __('A custom button class controls its own spacing.', 'BeRocket_LGV_domain'),
+                ),
+                'switcher_design' => array(
+                    'label'     => __('Switcher design', 'BeRocket_LGV_domain'),
+                    'name'      => array('buttons_page', 'switcher_design'),
+                    'type'      => 'selectbox',
+                    'class'     => 'br-lgv-switcher-design',
+                    // Missing keys on existing installations must stay Manual.
+                    'value'     => 'manual',
+                    'options'   => $switcher_design_options,
+                    'label_for' => __('Manual keeps your current button styles. Custom class overrides presets.', 'BeRocket_LGV_domain'),
+                    'text_after' => '<div class="berocket_lgv_widget br-lgv-design-preview" style="display:none">'
+                        . '<span class="br-lgv-switcher">'
+                        . '<button type="button" class="berocket_lgv_set selected" aria-label="' . esc_attr__('Grid view', 'BeRocket_LGV_domain') . '"><i class="fa fa-th" aria-hidden="true"></i></button>'
+                        . '<button type="button" class="berocket_lgv_set" aria-label="' . esc_attr__('List view', 'BeRocket_LGV_domain') . '"><i class="fa fa-bars" aria-hidden="true"></i></button>'
+                        . '</span></div>',
+                ),
                 'button_styles' => array(
                     "label"     => "",
-                    "tr_class"  => "brlgv_style_block",
+                    "tr_class"  => "brlgv_style_block br-lgv-manual-switcher",
                     "section"   => 'button_styles'
                 ),
             ),
@@ -860,6 +1016,21 @@ class BeRocket_LGV extends BeRocket_Framework {
                         array('value' => 'right', 'text' => __('Right', 'BeRocket_LGV_domain')),
                     ),
                     "value"    => '',
+                ),
+            ),
+            'List Style' => array(
+                'list_spacing' => array(
+                    'label' => __('List appearance', 'BeRocket_LGV_domain'),
+                    'name' => array('liststyle', 'spacing'),
+                    'type' => 'selectbox',
+                    'class' => 'br-lgv-list-spacing',
+                    'value' => 'default',
+                    'options' => array(
+                        array('value' => 'default', 'text' => __('Default / existing styles', 'BeRocket_LGV_domain')),
+                        array('value' => 'compact', 'text' => __('Compact', 'BeRocket_LGV_domain')),
+                        array('value' => 'dividers', 'text' => __('Rows with dividers', 'BeRocket_LGV_domain')),
+                    ),
+                    'label_for' => __('Compact reduces thumbnail size, text size and spacing. The divider preset adds a line between products.', 'BeRocket_LGV_domain'),
                 ),
             ),
             'Custom CSS/JavaScript' => array(

@@ -4,8 +4,8 @@ Contributors: berocket, dholovnia
 Donate link: https://berocket.com/woocommerce-grid-list-view/?utm_source=wordpress_org&utm_medium=donate&utm_campaign=list_grid
 Tags: woocommerce, grid view, list view, layout, toggle
 Requires at least: 5.0
-Tested up to: 7.1
-Stable tag: 3.0.10
+Tested up to: 7.1.4
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,25 @@ You can try this plugin's admin side [here](https://berocket.com/woocommerce-gri
 ---
 
 == Changelog ==
+
+= 3.2 =
+* Feature - Added a list appearance with dividers between product rows.
+* Feature - Added a vertical grid/list switcher for narrow sidebars.
+* Enhancement - Added Small, Medium and Large spacing presets between switcher buttons.
+* Fix - Corrected the Above buttons and Under buttons padding labels.
+* Fix - Improved list rendering inside CSS grid product containers.
+* Feature - Added grid/list and product count controls for inherited WooCommerce Product Collections, including pagination support.
+* Enhancement - Updated BeRocket Framework to 3.1.5 with optional premium product links.
+* Enhancement - Removed an unused Windows-only dependency from Divi 5 builds.
+* Enhancement - Updated compatibility declarations for WordPress 7.1.4 and WooCommerce 11.3.0.
+
+= 3.1 =
+* Feature - Added ready-made grid/list switcher designs with live previews, including Segmented, Underline and Outline.
+* Feature - Added an optional compact appearance for list views.
+* Enhancement - Used Outline for new installations and improved the switcher design selector.
+* Enhancement - Added or improved settings import/export and backup restoration.
+* Enhancement - Updated BeRocket Framework to 3.1.3 with CDN release metadata, reduced updater API traffic, isolated invalid catalog records, improved banner tracking, and an SVG account icon.
+* Enhancement - Updated compatibility declarations for WordPress 7.1.3 and WooCommerce 11.2.1.
 
 = 3.0.10 =
 * Enhancement - Updated framework.
